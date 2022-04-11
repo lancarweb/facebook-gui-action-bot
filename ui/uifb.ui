@@ -212,7 +212,7 @@ color: rgb(255, 255, 255);</string>
          </rect>
         </property>
         <property name="columnCount">
-         <number>3</number>
+         <number>4</number>
         </property>
         <column>
          <property name="text">
@@ -229,6 +229,11 @@ color: rgb(255, 255, 255);</string>
           <string>Password</string>
          </property>
         </column>
+        <column>
+         <property name="text">
+          <string>Messages</string>
+         </property>
+        </column>
        </widget>
       </widget>
       <widget class="QWidget" name="setting">
@@ -241,7 +246,7 @@ color: rgb(255, 255, 255);</string>
           <x>10</x>
           <y>10</y>
           <width>361</width>
-          <height>226</height>
+          <height>266</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout">
