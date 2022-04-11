@@ -239,20 +239,9 @@ class MyThread(QThread):
                     act_log = act.find_element(By.TAG_NAME, 'a').get_attribute('href')
                     # print(act_log)
                     act.click()
+                    self.notifyProgress.emit("{} mengunjungi> {}".format(kwargs["username"], act.text.split('\n')[0]))
                 except:
                     continue 
-
-                #while True:
-                #    sleep(1)
-                #    try:
-                #        act.click()
-                #        print("list LIST> {}".format(act.text))
-                #        self.notifyProgress.emit("{} mengunjungi> {}".format(kwargs["username"], act.text.split("\n")[0]))
-                #        #act.click()
-                #        
-                #        break
-                #    except:
-                #        print("loading..")
                 
                 # loading
                 while True:
