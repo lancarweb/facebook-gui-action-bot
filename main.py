@@ -143,12 +143,12 @@ class MyThread(QThread):
         # database loads
         db = sqlite3.connect(os.path.join(os.path.expanduser(os.getcwd()), 'db', 'database.db'))
         cursor = db.cursor()
-        query = "SELECT username, password from ACCOUNTS"
+        query = "SELECT username, password, messages from ACCOUNTS"
         results = cursor.execute(query)
 
         for result in results:
             app_thread = Thread(target=self.start_bot, kwargs={
-                                "username": result[0], "password": result[1]})
+                "username": result[0], "password": result[1], "messages": result[2]})
             app_thread.start()
 
     def start_bot(self, **kwargs):
@@ -205,7 +205,8 @@ class MyThread(QThread):
 
         # OpenProfileActions
         if self.condopenprofile:
-            message = "Hello"
+            #message = "Hello"
+            message = kwargs["messages"]
 
             # loading-after-login
             while True:
@@ -234,9 +235,17 @@ class MyThread(QThread):
             friends_list = driver.find_elements_by_xpath('//a[@class="oajrlxb2 gs1a9yip g5ia77u1 mtkw9kbi tlpljxtp qensuy8j ppp5ayq2 goun2846 ccm00jje s44p3ltw mk2mc5f4 rt8b4zig n8ej3o3l agehan2d sk4xxmp2 rq0escxv nhd2j8a9 mg4g778l pfnyh3mw p7hjln8o kvgmc6g5 cxmmr5t8 oygrvhab hcukyx3x tgvbjcpo hpfvmrgz jb3vyjys rz4wbd8a qt6c0cv9 a8nywdso l9j0dhe7 i1ao9s8h esuyzwwr f1sip0of du4w35lb btwxx1t3 abiwlrkh p8dawk7l lzcic4wl ue3kfks5 pw54ja7n uo3d90p7 l82x9zwi a8c37x1j"]') 
 
             for act in friends_list:
-                print("list LIST> {}".format(act.text))
-                self.notifyProgress.emit("{} mengunjungi> {}".format(kwargs["username"], act.text.split("\n")[0]))
-                act.click()
+                while True:
+                    sleep(1)
+                    try:
+                        act.click()
+                        print("list LIST> {}".format(act.text))
+                        self.notifyProgress.emit("{} mengunjungi> {}".format(kwargs["username"], act.text.split("\n")[0]))
+                        #act.click()
+                        
+                        break
+                    except:
+                        print("loading..")
                 
                 # loading
                 while True:
@@ -252,7 +261,7 @@ class MyThread(QThread):
 
                 action_prof = Actionprofile()
                 action_prof.action_profile(
-                    kwargs["username"], self.notifyProgress, driver, By, Keys, message, timeout=1, comment=False, emoji=False, like=True)
+                    kwargs["username"], self.notifyProgress, driver, By, Keys, message, timeout=1, comment=True, emoji=False, like=True)
 
 
 app = QApplication(sys.argv)
