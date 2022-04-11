@@ -97,15 +97,23 @@ class Facebook(QMainWindow):
 
     def startAction(self):
         cond_scroll_time_lines = self.checkBoxScrollTimeLine.isChecked()
+        # open|profile
         cond_open_profile = self.checkBoxOpenProfile.isChecked()
+        set_enable_op_comment = self.checkBoxOpComment.isChecked()
+        set_enable_op_like = self.checkBoxOpLike.isChecked()
+        set_enable_op_emoji = self.checkBoxOpEmoji.isChecked()
 
-        self.thread_bot = MyThread(cond_scroll_time_lines, cond_open_profile)
+        self.thread_bot = MyThread(cond_scroll_time_lines, cond_open_profile, set_enable_op_comment, set_enable_op_like, set_enable_op_emoji)
         self.thread_bot.notifyProgress.connect(self.displayListView)
         self.thread_bot.notifyProgressUserAgent.connect(self.displayUserAgent)
 
         self.startButtonAction.setEnabled(False)
         self.stopButtonAction.setEnabled(True)
         self.checkBoxScrollTimeLine.setEnabled(False)
+        self.checkBoxOpenProfile.setEnabled(False)
+        self.checkBoxOpComment.setEnabled(False)
+        self.checkBoxOpLike.setEnabled(False)
+        self.checkBoxOpEmoji.setEnabled(False)
 
         self.bot_running()
 
@@ -134,11 +142,15 @@ class MyThread(QThread):
     notifyProgress = pyqtSignal(str)
     notifyProgressUserAgent = pyqtSignal(str)
 
-    def __init__(self, condscrolltimelines, condopenprofile, parent=None):
+    def __init__(self, condscrolltimelines, condopenprofile, setenableopcomment, setenableoplike, setenableopemoji, parent=None):
         QThread.__init__(self, parent)
 
         self.condscrolltimelines = condscrolltimelines
+        # open|profile
         self.condopenprofile = condopenprofile
+        self.setenableopcomment = setenableopcomment
+        self.setenableoplike = setenableoplike
+        self.setenableopemoji = setenableopemoji
 
     def run(self):
         # database loads
@@ -258,7 +270,7 @@ class MyThread(QThread):
 
                 action_prof = Actionprofile()
                 action_prof.action_profile(
-                    kwargs["username"], self.notifyProgress, driver, By, Keys, message, timeout=1, comment=True, emoji=False, like=True)
+                    kwargs["username"], self.notifyProgress, driver, By, Keys, message, timeout=1, comment=self.setenableopcomment, emoji=self.setenableopemoji, like=self.setenableoplike)
 
 
 app = QApplication(sys.argv)

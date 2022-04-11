@@ -6,19 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>420</width>
+    <width>510</width>
     <height>400</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>420</width>
+    <width>510</width>
     <height>400</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>420</width>
+    <width>510</width>
     <height>400</height>
    </size>
   </property>
@@ -30,7 +30,7 @@
     <rect>
      <x>9</x>
      <y>9</y>
-     <width>401</width>
+     <width>491</width>
      <height>381</height>
     </rect>
    </property>
@@ -72,7 +72,7 @@ color: rgb(255, 255, 255);</string>
          <rect>
           <x>10</x>
           <y>280</y>
-          <width>371</width>
+          <width>231</width>
           <height>31</height>
          </rect>
         </property>
@@ -98,7 +98,7 @@ color: rgb(255, 255, 255);</string>
          <rect>
           <x>10</x>
           <y>10</y>
-          <width>71</width>
+          <width>91</width>
           <height>21</height>
          </rect>
         </property>
@@ -115,9 +115,9 @@ color: rgb(255, 255, 255);</string>
        <widget class="QLabel" name="userAgentInfo">
         <property name="geometry">
          <rect>
-          <x>80</x>
+          <x>100</x>
           <y>10</y>
-          <width>301</width>
+          <width>371</width>
           <height>20</height>
          </rect>
         </property>
@@ -128,9 +128,9 @@ color: rgb(255, 255, 255);</string>
        <widget class="QListWidget" name="listWidget">
         <property name="geometry">
          <rect>
-          <x>15</x>
+          <x>5</x>
           <y>41</y>
-          <width>361</width>
+          <width>471</width>
           <height>231</height>
          </rect>
         </property>
@@ -160,7 +160,7 @@ color: rgb(255, 255, 255);</string>
          <rect>
           <x>10</x>
           <y>10</y>
-          <width>371</width>
+          <width>471</width>
           <height>31</height>
          </rect>
         </property>
@@ -214,7 +214,7 @@ color: rgb(255, 255, 255);</string>
          <rect>
           <x>10</x>
           <y>50</y>
-          <width>371</width>
+          <width>471</width>
           <height>261</height>
          </rect>
         </property>
@@ -252,57 +252,22 @@ color: rgb(255, 255, 255);</string>
          <rect>
           <x>10</x>
           <y>10</y>
-          <width>361</width>
+          <width>465</width>
           <height>266</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout">
-         <item row="5" column="0">
-          <widget class="QLabel" name="label_7">
-           <property name="text">
-            <string>Watch Story</string>
-           </property>
-          </widget>
-         </item>
-         <item row="8" column="0">
-          <widget class="QLabel" name="label_10">
-           <property name="text">
-            <string>Accept Friend</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QCheckBox" name="checkBoxScrollTimeLine">
-           <property name="text">
-            <string>&lt;select&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>Scroll Timeline</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_3">
-           <property name="text">
-            <string>Open Profile</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="1">
-          <widget class="QCheckBox" name="checkBox_4">
-           <property name="text">
-            <string>&lt;select&gt;</string>
-           </property>
-          </widget>
-         </item>
          <item row="7" column="0">
           <widget class="QLabel" name="label_9">
            <property name="text">
             <string>Like Fanspage</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QCheckBox" name="checkBoxOpenProfile">
+           <property name="text">
+            <string>&lt;select&gt;</string>
            </property>
           </widget>
          </item>
@@ -313,43 +278,15 @@ color: rgb(255, 255, 255);</string>
            </property>
           </widget>
          </item>
-         <item row="6" column="0">
-          <widget class="QLabel" name="label_8">
+         <item row="8" column="0">
+          <widget class="QLabel" name="label_10">
            <property name="text">
-            <string>Join Group</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="0">
-          <widget class="QLabel" name="label_6">
-           <property name="text">
-            <string>Read Messenger</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="1">
-          <widget class="QCheckBox" name="checkBox_5">
-           <property name="text">
-            <string>&lt;select&gt;</string>
+            <string>Accept Friend</string>
            </property>
           </widget>
          </item>
          <item row="5" column="1">
           <widget class="QCheckBox" name="checkBox_6">
-           <property name="text">
-            <string>&lt;select&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="label_4">
-           <property name="text">
-            <string>Watch Video</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QCheckBox" name="checkBoxOpenProfile">
            <property name="text">
             <string>&lt;select&gt;</string>
            </property>
@@ -362,24 +299,52 @@ color: rgb(255, 255, 255);</string>
            </property>
           </widget>
          </item>
-         <item row="9" column="0">
-          <widget class="QLabel" name="label_11">
-           <property name="text">
-            <string>Add Friend</string>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="1">
-          <widget class="QCheckBox" name="checkBox_7">
+         <item row="9" column="1">
+          <widget class="QCheckBox" name="checkBox_10">
            <property name="text">
             <string>&lt;select&gt;</string>
            </property>
           </widget>
          </item>
-         <item row="7" column="1">
-          <widget class="QCheckBox" name="checkBox_8">
+         <item row="4" column="1">
+          <widget class="QCheckBox" name="checkBox_5">
            <property name="text">
             <string>&lt;select&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>Open Profile</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0">
+          <widget class="QLabel" name="label_7">
+           <property name="text">
+            <string>Watch Story</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Scroll Timeline</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>Watch Video</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="3">
+          <widget class="QCheckBox" name="checkBoxOpLike">
+           <property name="text">
+            <string>Like</string>
            </property>
           </widget>
          </item>
@@ -390,10 +355,66 @@ color: rgb(255, 255, 255);</string>
            </property>
           </widget>
          </item>
-         <item row="9" column="1">
-          <widget class="QCheckBox" name="checkBox_10">
+         <item row="4" column="0">
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>Read Messenger</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="1">
+          <widget class="QCheckBox" name="checkBox_7">
            <property name="text">
             <string>&lt;select&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QCheckBox" name="checkBoxOpComment">
+           <property name="text">
+            <string>Comment</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QCheckBox" name="checkBoxScrollTimeLine">
+           <property name="text">
+            <string>&lt;select&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QCheckBox" name="checkBox_4">
+           <property name="text">
+            <string>&lt;select&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="9" column="0">
+          <widget class="QLabel" name="label_11">
+           <property name="text">
+            <string>Add Friend</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="0">
+          <widget class="QLabel" name="label_8">
+           <property name="text">
+            <string>Join Group</string>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="1">
+          <widget class="QCheckBox" name="checkBox_8">
+           <property name="text">
+            <string>&lt;select&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="4">
+          <widget class="QCheckBox" name="checkBoxOpEmoji">
+           <property name="text">
+            <string>Emoji</string>
            </property>
           </widget>
          </item>
