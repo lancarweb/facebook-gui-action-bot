@@ -206,8 +206,6 @@ class MyThread(QThread):
         # OpenProfileActions
         if self.condopenprofile:
             message = "Hello"
-            
-            target_user = "https://facebook.com/omahkomputergroup"
 
             # loading-after-login
             while True:
@@ -254,7 +252,7 @@ class MyThread(QThread):
 
                 action_prof = Actionprofile()
                 action_prof.action_profile(
-                    kwargs["username"], self.notifyProgress, target_user, driver, By, Keys, message, timeout=1, comment=False, emoji=False, like=True)
+                    kwargs["username"], self.notifyProgress, driver, By, Keys, message, timeout=1, comment=False, emoji=False, like=True)
 
 
 app = QApplication(sys.argv)
