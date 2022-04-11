@@ -58,11 +58,12 @@ class Facebook(QMainWindow):
         # addData
         conn = sqlite3.connect(os.path.join(os.path.expanduser(os.getcwd()), 'db', 'database.db'))
         conn.execute(
-            "INSERT INTO ACCOUNTS (username, password) VALUES ('{}', '{}')".format(self.lineEditUsername.text(), self.lineEditPassword.text()))
+            "INSERT INTO ACCOUNTS (username, password, messages) VALUES ('{}', '{}', '{}')".format(self.lineEditUsername.text(), self.lineEditPassword.text(), self.lineEditMessage.text()))
         conn.commit()
         # clear.fields
         self.lineEditUsername.clear()
         self.lineEditPassword.clear()
+        self.lineEditMessage.clear()
 
         conn.close()
         self.viewTable()

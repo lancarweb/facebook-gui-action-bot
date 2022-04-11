@@ -180,6 +180,13 @@ color: rgb(255, 255, 255);</string>
           </widget>
          </item>
          <item>
+          <widget class="QLineEdit" name="lineEditMessage">
+           <property name="placeholderText">
+            <string>Message</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QPushButton" name="addButtonAction">
            <property name="text">
             <string>ADD</string>
