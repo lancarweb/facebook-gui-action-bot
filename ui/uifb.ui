@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>510</width>
-    <height>400</height>
+    <width>650</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>510</width>
-    <height>400</height>
+    <width>650</width>
+    <height>600</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>510</width>
-    <height>400</height>
+    <width>650</width>
+    <height>600</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -30,8 +30,8 @@
     <rect>
      <x>9</x>
      <y>9</y>
-     <width>491</width>
-     <height>381</height>
+     <width>631</width>
+     <height>581</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -71,7 +71,7 @@ color: rgb(255, 255, 255);</string>
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>280</y>
+          <y>470</y>
           <width>231</width>
           <height>31</height>
          </rect>
@@ -117,7 +117,7 @@ color: rgb(255, 255, 255);</string>
          <rect>
           <x>100</x>
           <y>10</y>
-          <width>371</width>
+          <width>511</width>
           <height>20</height>
          </rect>
         </property>
@@ -128,10 +128,10 @@ color: rgb(255, 255, 255);</string>
        <widget class="QListWidget" name="listWidget">
         <property name="geometry">
          <rect>
-          <x>5</x>
+          <x>15</x>
           <y>41</y>
-          <width>471</width>
-          <height>231</height>
+          <width>601</width>
+          <height>421</height>
          </rect>
         </property>
         <property name="autoFillBackground">
@@ -160,46 +160,11 @@ color: rgb(255, 255, 255);</string>
          <rect>
           <x>10</x>
           <y>10</y>
-          <width>471</width>
+          <width>601</width>
           <height>31</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <item>
-          <widget class="QLineEdit" name="lineEditUsername">
-           <property name="placeholderText">
-            <string>Username</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="lineEditPassword">
-           <property name="placeholderText">
-            <string>Password</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="lineEditMessage">
-           <property name="placeholderText">
-            <string>Message</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QSpinBox" name="spinBoxTimeout">
-           <property name="maximum">
-            <number>1000</number>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QSpinBox" name="spinBoxStep">
-           <property name="maximum">
-            <number>1000</number>
-           </property>
-          </widget>
-         </item>
          <item>
           <widget class="QPushButton" name="addButtonAction">
            <property name="text">
@@ -208,11 +173,14 @@ color: rgb(255, 255, 255);</string>
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="rolldel">
-           <property name="placeholderText">
-            <string>Roll. ID</string>
+          <widget class="QPushButton" name="pushButtonEdit">
+           <property name="text">
+            <string>Edit</string>
            </property>
           </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboBoxDel"/>
          </item>
          <item>
           <widget class="QPushButton" name="deleteButtonAction">
@@ -228,8 +196,8 @@ color: rgb(255, 255, 255);</string>
          <rect>
           <x>10</x>
           <y>50</y>
-          <width>471</width>
-          <height>261</height>
+          <width>601</width>
+          <height>221</height>
          </rect>
         </property>
         <property name="columnCount">
@@ -266,6 +234,98 @@ color: rgb(255, 255, 255);</string>
          </property>
         </column>
        </widget>
+       <widget class="QWidget" name="widget" native="true">
+        <property name="geometry">
+         <rect>
+          <x>9</x>
+          <y>279</y>
+          <width>601</width>
+          <height>221</height>
+         </rect>
+        </property>
+        <widget class="QWidget" name="gridLayoutWidget_2">
+         <property name="geometry">
+          <rect>
+           <x>9</x>
+           <y>9</y>
+           <width>581</width>
+           <height>201</height>
+          </rect>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_2">
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="lineEditUsername">
+            <property name="placeholderText">
+             <string>Username</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="lineEditMessage">
+            <property name="placeholderText">
+             <string>Message</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QSpinBox" name="spinBoxTimeout">
+            <property name="maximum">
+             <number>1000</number>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="lineEditPassword">
+            <property name="placeholderText">
+             <string>Password</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QSpinBox" name="spinBoxStep">
+            <property name="maximum">
+             <number>1000</number>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_13">
+            <property name="text">
+             <string>Username</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_14">
+            <property name="text">
+             <string>Password</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_15">
+            <property name="text">
+             <string>Message</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_16">
+            <property name="text">
+             <string>Timeout</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_17">
+            <property name="text">
+             <string>Step</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
       </widget>
       <widget class="QWidget" name="setting">
        <attribute name="title">
@@ -276,8 +336,8 @@ color: rgb(255, 255, 255);</string>
          <rect>
           <x>10</x>
           <y>10</y>
-          <width>466</width>
-          <height>272</height>
+          <width>601</width>
+          <height>431</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout">

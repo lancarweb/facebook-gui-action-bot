@@ -13,6 +13,9 @@ from facebookmod.scrolltimeline import scrolltimelines
 from facebookmod.openprofile import Actionprofile
 import os
 
+# Edit
+from edit import Editprofile
+
 # DRIVER CHROME
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -50,11 +53,61 @@ class Facebook(QMainWindow):
         self.addButtonAction.clicked.connect(self.addNewAccount)
         # delete.Roll.ID
         self.deleteButtonAction.clicked.connect(self.deleteRoll)
+        
+        # pushbuttonedit
+        self.pushButtonEdit.clicked.connect(self.pushedit)
 
+        # comboRollDel
+        self.comborolldel()
+        #db = sqlite3.connect(os.path.join(os.path.expanduser(os.getcwd()), 'db', 'database.db'))
+        #cursor = db.cursor()
+        #query = "SELECT id from Accounts"
+        #results = cursor.execute(query)
+        #iddel_items = [str(result[0]) for result in results]
+        #self.comboBoxDel.addItems(iddel_items)
+
+        # edit window
+        self.editwindow = Editprofile()
+        
         self.show()
 
-    def addNewAccount(self):
+    def comborolldel(self):
+        db = sqlite3.connect(os.path.join(os.path.expanduser(os.getcwd()), 'db', 'database.db'))
+        cursor = db.cursor()
+        query = "SELECT id from Accounts"
+        results = cursor.execute(query)
+        iddel_items = [str(result[0]) for result in results]
+        self.comboBoxDel.addItems(iddel_items)
 
+        #for row_data, result_data  in enumerate(results):
+        #    print(row_data, result_data)
+        #    for row, data in enumerate(result_data):
+        #        print(row, data)
+        #        self.comboBoxDel.addItem(str(data))
+
+    def comborolldelinsert(self):
+        db = sqlite3.connect(os.path.join(os.path.expanduser(os.getcwd()), 'db', 'database.db'))
+        cursor = db.cursor()
+        query = "SELECT COUNT(id) from Accounts"
+        cursor.execute(query)
+        result = cursor.fetchone()[0]
+        # db.close()
+        # print(result)
+
+        db_item = sqlite3.connect(os.path.join(os.path.expanduser(os.getcwd()), 'db', 'database.db'))
+        cursor_item = db_item.cursor()
+        query_item = "SELECT id from Accounts"
+        result_items = cursor_item.execute(query_item)
+        result_id = [result[0] for result in result_items]
+        result_id_ = (result_id[result - 1])
+
+        self.comboBoxDel.insertItem(int(result)+1, "{}".format(result_id_))
+    
+    def pushedit(self):
+        # self.editwindow.insertItem()
+        self.editwindow.show()
+
+    def addNewAccount(self):
         # addData
         conn = sqlite3.connect(os.path.join(os.path.expanduser(os.getcwd()), 'db', 'database.db'))
         conn.execute(
@@ -69,6 +122,8 @@ class Facebook(QMainWindow):
 
         conn.close()
         self.viewTable()
+        self.comborolldelinsert()
+        self.editwindow.insertItem()
 
     def viewTable(self):
         db = sqlite3.connect(os.path.join(os.path.expanduser(os.getcwd()), 'db', 'database.db'))
@@ -84,10 +139,18 @@ class Facebook(QMainWindow):
                                    QTableWidgetItem(str(data)))
 
     def deleteRoll(self):
+        #select count
+        #db_count = sqlite3.connect(os.path.join(os.path.expanduser(os.getcwd()), 'db', 'database.db'))
+        #cursor_count = db_count.cursor()
+        #query_count = "SELECT * from Accounts where id='{}'".format(self.comboBoxDel.currentText())
+        #result_count = cursor_count.execute(query_count)
+        #for i in result_count:
+        #    print(i)
+
         db = sqlite3.connect(os.path.join(os.path.expanduser(os.getcwd()), 'db', 'database.db'))
         cursor = db.cursor()
         query = "DELETE from ACCOUNTS where ID = {};".format(
-            self.rolldel.text())
+            self.comboBoxDel.currentText())
         try:
             cursor.execute(query)
             db.commit()
@@ -95,7 +158,8 @@ class Facebook(QMainWindow):
             pass
 
         self.viewTable()
-        self.rolldel.clear()
+        # print(self.comboBoxDel.currentIndex())
+        self.comboBoxDel.removeItem(self.comboBoxDel.currentIndex())
 
     def startAction(self):
         cond_scroll_time_lines = self.checkBoxScrollTimeLine.isChecked()
