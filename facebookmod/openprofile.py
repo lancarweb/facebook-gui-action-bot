@@ -6,12 +6,13 @@ class Actionprofile:
     def __init__(self):
         pass
 
-    def action_profile(self, username, notifyProgress, driver, By, Keys, message, timeout=1, comment=True, emoji=True, like=True):
+    def action_profile(self, username, notifyProgress, driver, By, Keys, message, timeout=1, comment=True, emoji=True, like=True, scrolltimeout=5):
         message = message
         timeout = timeout
         comment = comment
         emoji = emoji
         like = like
+        scrolltimeout = scrolltimeout
 
         # open_target_user | loading
         while True:
@@ -27,7 +28,7 @@ class Actionprofile:
         scroll_op = 0
         while True:
             sleep(1)
-            if scroll_op == 10:
+            if scroll_op == int(scrolltimeout):
                 break
             try:
                 scrolltimelines(driver, By, Keys)
@@ -38,7 +39,7 @@ class Actionprofile:
 
             scroll_op += 1
 
-        # wait
+        # loading
         while True:
             sleep(0.5)
             try:

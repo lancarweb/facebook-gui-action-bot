@@ -58,12 +58,14 @@ class Facebook(QMainWindow):
         # addData
         conn = sqlite3.connect(os.path.join(os.path.expanduser(os.getcwd()), 'db', 'database.db'))
         conn.execute(
-            "INSERT INTO ACCOUNTS (username, password, messages) VALUES ('{}', '{}', '{}')".format(self.lineEditUsername.text(), self.lineEditPassword.text(), self.lineEditMessage.text()))
+            "INSERT INTO ACCOUNTS (username, password, messages, timeout, timeoutstep) VALUES ('{}', '{}', '{}', {}, {})".format(self.lineEditUsername.text(), self.lineEditPassword.text(), self.lineEditMessage.text(), self.spinBoxTimeout.text(), self.spinBoxStep.text()))
         conn.commit()
         # clear.fields
         self.lineEditUsername.clear()
         self.lineEditPassword.clear()
         self.lineEditMessage.clear()
+        self.spinBoxTimeout.setValue(0)
+        self.spinBoxStep.setValue(0)
 
         conn.close()
         self.viewTable()
@@ -102,8 +104,11 @@ class Facebook(QMainWindow):
         set_enable_op_comment = self.checkBoxOpComment.isChecked()
         set_enable_op_like = self.checkBoxOpLike.isChecked()
         set_enable_op_emoji = self.checkBoxOpEmoji.isChecked()
+        set_spinboxscst = self.spinBoxScSt.text()
+        set_spinboxscop = self.spinBoxScOp.text()
+        # print(set_spinboxscst, set_spinboxscop)
 
-        self.thread_bot = MyThread(cond_scroll_time_lines, cond_open_profile, set_enable_op_comment, set_enable_op_like, set_enable_op_emoji)
+        self.thread_bot = MyThread(cond_scroll_time_lines, cond_open_profile, set_enable_op_comment, set_enable_op_like, set_enable_op_emoji, set_spinboxscst, set_spinboxscop)
         self.thread_bot.notifyProgress.connect(self.displayListView)
         self.thread_bot.notifyProgressUserAgent.connect(self.displayUserAgent)
 
@@ -114,6 +119,8 @@ class Facebook(QMainWindow):
         self.checkBoxOpComment.setEnabled(False)
         self.checkBoxOpLike.setEnabled(False)
         self.checkBoxOpEmoji.setEnabled(False)
+        self.spinBoxScSt.setEnabled(False)
+        self.spinBoxScOp.setEnabled(False)
 
         self.bot_running()
 
@@ -137,12 +144,12 @@ class Facebook(QMainWindow):
     def bot_running(self):
         self.thread_bot.start()
 
-
+# Thread
 class MyThread(QThread):
     notifyProgress = pyqtSignal(str)
     notifyProgressUserAgent = pyqtSignal(str)
 
-    def __init__(self, condscrolltimelines, condopenprofile, setenableopcomment, setenableoplike, setenableopemoji, parent=None):
+    def __init__(self, condscrolltimelines, condopenprofile, setenableopcomment, setenableoplike, setenableopemoji, setspinboxscst, setspinboxscop,  parent=None):
         QThread.__init__(self, parent)
 
         self.condscrolltimelines = condscrolltimelines
@@ -151,17 +158,19 @@ class MyThread(QThread):
         self.setenableopcomment = setenableopcomment
         self.setenableoplike = setenableoplike
         self.setenableopemoji = setenableopemoji
+        self.setspinboxscst = setspinboxscst
+        self.setspinboxscop = setspinboxscop
 
     def run(self):
         # database loads
         db = sqlite3.connect(os.path.join(os.path.expanduser(os.getcwd()), 'db', 'database.db'))
         cursor = db.cursor()
-        query = "SELECT username, password, messages, timeout from ACCOUNTS"
+        query = "SELECT username, password, messages, timeout, timeoutstep from ACCOUNTS"
         results = cursor.execute(query)
 
         for result in results:
             app_thread = Thread(target=self.start_bot, kwargs={
-                "username": result[0], "password": result[1], "messages": result[2], "timeout": result[3]})
+                "username": result[0], "password": result[1], "messages": result[2], "timeout": result[3], "timeoutstep": result[4]})
             app_thread.start()
 
     def start_bot(self, **kwargs):
@@ -201,10 +210,24 @@ class MyThread(QThread):
             except:
                 pass
 
-        # ScrollTimeLines
-        if self.condscrolltimelines:
-            while True:
-                for scl in range(10):
+        # while forever
+        while True:
+            # ScrollTimeLines
+            if self.condscrolltimelines:
+                
+                # loading
+                while True:
+                    sleep(1)
+                    try:
+                        driver.find_element(By.XPATH, '//*[@preserveAspectRatio="xMidYMid slice"]')
+                        break
+                    except:
+                        pass
+
+                # go timeline
+                driver.get("https://facebook.com")
+
+                for scl in range(int(self.setspinboxscst)):
                     sleep(1)
                     try:
                         scrolltimelines(driver, By, Keys)
@@ -212,66 +235,67 @@ class MyThread(QThread):
                             str(kwargs["username"]+"-> scrolling the page.."))
                     except:
                         pass
-               
-                # timeout
-                sleep(int(kwargs["timeout"])) 
 
-        # OpenProfileActions
-        if self.condopenprofile:
-            #message = "Hello"
-            message = kwargs["messages"]
+                # timeout | step
+                sleep(kwargs["timeoutstep"])
 
-            # loading-after-login
-            while True:
-                sleep(1)
-                try:
-                    driver.find_element(By.XPATH, '//*[@class="ow4ym5g4 auili1gw rq0escxv j83agx80 buofh1pr g5gj957u i1fnvgqd oygrvhab cxmmr5t8 hcukyx3x kvgmc6g5 hpfvmrgz qt6c0cv9 jb3vyjys l9j0dhe7 du4w35lb bp9cbjyn btwxx1t3 dflh9lhu scb9dxdr nnctdnn4"]')
-                    break
-
-                except:
-                    pass
-
-            # get-url-list-friends
-            driver.get("https://www.facebook.com/friends/list")
-            
-            # loading-after-get-url-list
-            while True:
-                sleep(1)
-                try:
-                    driver.find_element(By.XPATH, '//*[@data-visualcompletion="ignore-dynamic"]')
-                    
-                    break
-                except:
-                    pass
-
-            # list-all-friends
-            friends_list = driver.find_elements(By.XPATH, '//*[@data-visualcompletion="ignore-dynamic"]')
-
-            for act in friends_list:
-                try:
-                    act_log = act.find_element(By.TAG_NAME, 'a').get_attribute('href')
-                    # print(act_log)
-                    act.click()
-                    self.notifyProgress.emit("{} mengunjungi> {}".format(kwargs["username"], act.text.split('\n')[0]))
-                except:
-                    continue 
+            # OpenProfileActions
+            if self.condopenprofile:
                 
-                # loading
+                message = kwargs["messages"]
+
+                # loading-after-login
                 while True:
                     sleep(1)
                     try:
-                        driver.find_element(By.XPATH, '//*[@class="rq0escxv l9j0dhe7 du4w35lb j83agx80 pfnyh3mw i1fnvgqd gs1a9yip owycx6da btwxx1t3 hv4rvrfc dati1w0a jb3vyjys b5q2rw42 lq239pai mysgfdmx hddg9phg"]').click()
+                        driver.find_element(By.XPATH, '//*[@class="ow4ym5g4 auili1gw rq0escxv j83agx80 buofh1pr g5gj957u i1fnvgqd oygrvhab cxmmr5t8 hcukyx3x kvgmc6g5 hpfvmrgz qt6c0cv9 jb3vyjys l9j0dhe7 du4w35lb bp9cbjyn btwxx1t3 dflh9lhu scb9dxdr nnctdnn4"]')
+                        break
+
+                    except:
+                        pass
+
+                # get-url-list-friends
+                driver.get("https://www.facebook.com/friends/list")
+                
+                # loading-after-get-url-list
+                while True:
+                    sleep(1)
+                    try:
+                        driver.find_element(By.XPATH, '//*[@data-visualcompletion="ignore-dynamic"]')
+                        
                         break
                     except:
                         pass
 
+                # list-all-friends
+                friends_list = driver.find_elements(By.XPATH, '//*[@data-visualcompletion="ignore-dynamic"]')
 
-                # actionall
+                for act in friends_list:
+                    try:
+                        act_log = act.find_element(By.TAG_NAME, 'a').get_attribute('href')
+                        # print(act_log)
+                        act.click()
+                        self.notifyProgress.emit("{} mengunjungi> {}".format(kwargs["username"], act.text.split('\n')[0]))
+                    except:
+                        continue 
+                    
+                    # loading
+                    while True:
+                        sleep(1)
+                        try:
+                            driver.find_element(By.XPATH, '//*[@class="rq0escxv l9j0dhe7 du4w35lb j83agx80 pfnyh3mw i1fnvgqd gs1a9yip owycx6da btwxx1t3 hv4rvrfc dati1w0a jb3vyjys b5q2rw42 lq239pai mysgfdmx hddg9phg"]').click()
+                            break
+                        except:
+                            pass
 
-                action_prof = Actionprofile()
-                action_prof.action_profile(
-                    kwargs["username"], self.notifyProgress, driver, By, Keys, message, timeout=1, comment=self.setenableopcomment, emoji=self.setenableopemoji, like=self.setenableoplike)
 
+                    # actionall
+
+                    action_prof = Actionprofile()
+                    action_prof.action_profile(kwargs["username"], self.notifyProgress, driver, By, Keys, message, timeout=1, comment=self.setenableopcomment, emoji=self.setenableopemoji, like=self.setenableoplike, scrolltimeout=self.setspinboxscop)
+
+            # timeout
+            sleep(kwargs["timeout"])
 
 app = QApplication(sys.argv)
 window = Facebook()
