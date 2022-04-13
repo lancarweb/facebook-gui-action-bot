@@ -61,7 +61,7 @@ color: rgb(255, 255, 255);</string>
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="home">
        <attribute name="title">
@@ -219,7 +219,7 @@ color: rgb(255, 255, 255);</string>
          </rect>
         </property>
         <property name="columnCount">
-         <number>4</number>
+         <number>5</number>
         </property>
         <column>
          <property name="text">
@@ -239,6 +239,11 @@ color: rgb(255, 255, 255);</string>
         <column>
          <property name="text">
           <string>Messages</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Timeout</string>
          </property>
         </column>
        </widget>

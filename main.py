@@ -202,19 +202,19 @@ class MyThread(QThread):
                 pass
 
         # ScrollTimeLines
-        scroll = 0
-        while self.condscrolltimelines:
-            sleep(1)
-            if scroll == 10:
-                break
-            try:
-                scrolltimelines(driver, By, Keys)
-                self.notifyProgress.emit(
-                    str(kwargs["username"]+"-> scrolling the page.."))
-            except:
-                pass
-
-            scroll += 1
+        if self.condscrolltimelines:
+            while True:
+                for scl in range(10):
+                    sleep(1)
+                    try:
+                        scrolltimelines(driver, By, Keys)
+                        self.notifyProgress.emit(
+                            str(kwargs["username"]+"-> scrolling the page.."))
+                    except:
+                        pass
+               
+                # timeout
+                sleep(20) 
 
         # OpenProfileActions
         if self.condopenprofile:
