@@ -29,6 +29,14 @@ class Editprofile(QMainWindow):
         # buttonsave
         self.pushButtonSave.clicked.connect(self.save)
 
+    def removecombodel(self):
+        self.comboBoxId.removeItem(self.comboBoxId.currentIndex())
+        self.lineEditUsername.clear()
+        self.lineEditPassword.clear()
+        self.lineEditMessage.clear()
+        self.spinBoxTimeout.setValue(0)
+        self.spinBoxStep.setValue(0)
+
     def insertItem(self):
         
         db = sqlite3.connect(os.path.join(os.path.expanduser(os.getcwd()), 'db', 'database.db'))
@@ -50,7 +58,7 @@ class Editprofile(QMainWindow):
         #self.comboBoxId.addItems(result_items)
 
     def load(self):
-        print(self.comboBoxId.currentText())
+        # print(self.comboBoxId.currentText())
 
         # loaddata
         db = sqlite3.connect(os.path.join(os.path.expanduser(os.getcwd()), 'db', 'database.db')) 

@@ -160,6 +160,7 @@ class Facebook(QMainWindow):
         self.viewTable()
         # print(self.comboBoxDel.currentIndex())
         self.comboBoxDel.removeItem(self.comboBoxDel.currentIndex())
+        self.editwindow.removecombodel()
 
     def startAction(self):
         cond_scroll_time_lines = self.checkBoxScrollTimeLine.isChecked()
