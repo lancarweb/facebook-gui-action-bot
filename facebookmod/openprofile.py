@@ -49,10 +49,10 @@ class Actionprofile:
             except:
                 pass
 
-        # comments
+        # comments | Emoji | Like
         n = 0
         for comm in commelms:
-            print(n)
+            # print(n)
             try:
                 if comment:
                     # comment
@@ -60,6 +60,7 @@ class Actionprofile:
                     comm.click()
                     sleep(timeout)
                     comm.send_keys(str(message))
+                    notifyProgress.emit("{} write | Comment Field".format(username))
 
                 if emoji:
                     # emoji
@@ -69,14 +70,15 @@ class Actionprofile:
 
                     sleep(timeout)
                     driver.find_element(By.XPATH, '//img[@alt="😀"]').click()
+                    notifyProgress.emit("{} click | Emoji Button".format(username))
 
                 if like:
                     # like
                     sleep(timeout)
                     driver.execute_script(
                         'document.getElementsByClassName("rq0escxv l9j0dhe7 du4w35lb j83agx80 pfnyh3mw i1fnvgqd gs1a9yip owycx6da btwxx1t3 ph5uu5jm b3onmgus e5nlhep0 ecm0bbzt nkwizq5d roh60bw9 mysgfdmx hddg9phg")[{}].getElementsByClassName("rq0escxv l9j0dhe7 du4w35lb j83agx80 rj1gh0hx buofh1pr g5gj957u hpfvmrgz taijpn5t bp9cbjyn owycx6da btwxx1t3 d1544ag0 tw6a2znq jb3vyjys dlv3wnog rl04r1d5 mysgfdmx hddg9phg qu8okrzs g0qnabr5")[0].click()'.format(str(n)))
-                notifyProgress.emit(
-                    "{}-> Reactions | Comment | Emoji | Like".format(username))
+                    notifyProgress.emit("{}-> click | Like Button".format(username))
+                
                 n += 1
             except:
                 pass
