@@ -156,12 +156,12 @@ class MyThread(QThread):
         # database loads
         db = sqlite3.connect(os.path.join(os.path.expanduser(os.getcwd()), 'db', 'database.db'))
         cursor = db.cursor()
-        query = "SELECT username, password, messages from ACCOUNTS"
+        query = "SELECT username, password, messages, timeout from ACCOUNTS"
         results = cursor.execute(query)
 
         for result in results:
             app_thread = Thread(target=self.start_bot, kwargs={
-                "username": result[0], "password": result[1], "messages": result[2]})
+                "username": result[0], "password": result[1], "messages": result[2], "timeout": result[3]})
             app_thread.start()
 
     def start_bot(self, **kwargs):
@@ -214,7 +214,7 @@ class MyThread(QThread):
                         pass
                
                 # timeout
-                sleep(20) 
+                sleep(int(kwargs["timeout"])) 
 
         # OpenProfileActions
         if self.condopenprofile:
