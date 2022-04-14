@@ -27,11 +27,8 @@ from selenium.webdriver import ActionChains
 
 load_dotenv()
 
-# os path.join
-
 # baseurl
 baseurl = os.environ["BASE"]
-
 
 class Facebook(QMainWindow):
     def __init__(self):
@@ -57,6 +54,9 @@ class Facebook(QMainWindow):
         # pushbuttonedit
         self.pushButtonEdit.clicked.connect(self.pushedit)
 
+        # pushButtonReload
+        self.pushButtonReload.clicked.connect(self.viewTable)
+
         # comboRollDel
         self.comborolldel()
         #db = sqlite3.connect(os.path.join(os.path.expanduser(os.getcwd()), 'db', 'database.db'))
@@ -70,6 +70,9 @@ class Facebook(QMainWindow):
         self.editwindow = Editprofile()
         
         self.show()
+
+    def percobaan(self):
+        print('Hello Percobaan saja.')
 
     def comborolldel(self):
         db = sqlite3.connect(os.path.join(os.path.expanduser(os.getcwd()), 'db', 'database.db'))

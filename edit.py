@@ -88,3 +88,4 @@ class Editprofile(QMainWindow):
         self.lineEditMessage.clear()
         self.spinBoxTimeout.setValue(0)
         self.spinBoxStep.setValue(0)
+        
